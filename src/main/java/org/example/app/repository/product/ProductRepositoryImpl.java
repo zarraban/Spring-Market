@@ -1,13 +1,13 @@
 package org.example.app.repository.product;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.app.entity.Product;
-import org.example.app.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 
+@Slf4j
 @Repository("productRepository")
 public class ProductRepositoryImpl implements ProductRepository {
 
@@ -22,8 +22,8 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new Exception("Repository has this product alresdy");
             }
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
+        catch (Exception e){;
+           logError(e);
         }
     }
 
@@ -45,7 +45,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new NoSuchElementException("No such id in database");
             }
         }catch (NoSuchElementException e){
-            System.out.println(e.getMessage());
+            logError(e);
         }
         return null;
     }
@@ -62,7 +62,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
        }catch (NoSuchElementException e){
-           System.out.println(e.getMessage());
+           logError(e);
        }
        return false;
     }
@@ -79,9 +79,11 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
         }catch (NoSuchElementException e){
-            System.out.println(e.getMessage());
+            logError(e);
         }
         return false;
     }
-
+    private void logError(Exception e){
+        log.error("Error occurred: {}",e.getMessage());
+    }
 }

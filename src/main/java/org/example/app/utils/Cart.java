@@ -1,5 +1,6 @@
 package org.example.app.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.app.entity.Product;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 
+@Slf4j
 @Component
 public class Cart {
     private final Map<Long,Product> map = new HashMap<>();
@@ -28,11 +30,16 @@ public class Cart {
 
         } catch (NoSuchElementException e){
             System.out.println(e.getMessage());
+            log.error("Error occurred: {}",e.getMessage());
         }
     }
 
     public void add(Product product){
     map.put(id.getAndIncrement(),product);
+    }
+
+    public boolean isEmpty(){
+        return map.isEmpty();
     }
 
     @Override

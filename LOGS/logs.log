@@ -1,0 +1,2 @@
+15:56:31.433 [main] ERROR o.e.a.r.p.ProductRepositoryImpl -- Error occurred: No such id in database
+16:05:27.819 [main] ERROR org.example.app.utils.Cart -- Error occurred: Cart doesn't have this product

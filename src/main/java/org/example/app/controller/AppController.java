@@ -1,5 +1,6 @@
 package org.example.app.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.app.entity.Product;
 import org.example.app.utils.Cart;
 import org.example.app.repository.product.ProductRepository;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import java.util.Map;
 import java.util.Scanner;
 
+
+@Slf4j
 @Controller("appController")
 public class AppController {
     private final Scanner sc;
@@ -45,13 +48,31 @@ public class AppController {
                     }
                     case 2-> {
                         System.out.println("Products in cart: \n");
-                        System.out.println(cart);
-                        deleteFromCart();
+                        if(cart.isEmpty()){
+                            System.out.println("nothing");
+                        }else {
+                            System.out.println(cart);
+                            deleteFromCart();
+                        }
+
+                    }
+                    default -> {
+
+                        log.error("User typed in wrong option");
+                        System.out.println("There is no such option");
                     }
                 }
 
             }
-            case 3-> System.out.println(cart);
+            case 3-> {
+                if(cart.isEmpty()){
+                    System.out.println("Products in cart: \n");
+                    System.out.println("nothing");
+                }else {
+                    System.out.println("Products in cart: \n");
+                    System.out.println(cart);
+                }
+            }
 
             case 4-> {
                 int optionRepo = view.productRepoMenu();
@@ -60,10 +81,19 @@ public class AppController {
                     case 2-> getByIdProduct();
                     case 3-> updateProduct();
                     case 4-> deleteProduct();
+                    default -> {
+                        log.error("User typed in wrong option");
+                        System.out.println("There is no such option");
+                    }
 
                 }
             }
             case 0-> System.exit(0);
+            default -> {
+
+                log.error("User typed in wrong option");
+                System.out.println("There is no such option");
+            }
         }
         run();
     }
