@@ -9,16 +9,15 @@ import java.util.concurrent.atomic.AtomicLong;
 
 
 @Repository("productRepository")
-public class ProductRepository implements BaseRepository<Product> {
+public class ProductRepositoryImpl implements ProductRepository {
 
     private final static Map<Long, Product> PRODUCT_MAP = new HashMap<>();
-    private static final AtomicLong id = new AtomicLong(0);
 
     @Override
     public void create(Product entity) {
         try {
             if (!PRODUCT_MAP.containsValue(entity)) {
-                PRODUCT_MAP.put(id.getAndIncrement(), entity);
+                PRODUCT_MAP.put(entity.getId(), entity);
             } else {
                 throw new Exception("Repository has this product alresdy");
             }
