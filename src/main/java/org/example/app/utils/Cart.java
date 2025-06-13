@@ -2,6 +2,7 @@ package org.example.app.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.app.entity.Product;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Component
+@Scope("prototype")
 public class Cart {
     private final Map<Long,Product> map = new HashMap<>();
     private static AtomicLong id = new AtomicLong(0);
